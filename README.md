@@ -22,3 +22,38 @@ crownfield-eye-db/
 │ ├── q5_procedure.sql # Prescription details + stored procedure
 │ └── q6_trigger.sql # Follow-up date validation trigger
 
+plaintext
+
+## Database Schema
+### Core Tables
+| Table | Purpose |
+|---|---|
+| `patient` | Demographic and contact details for all patients |
+| `specialty` | Clinical specialties offered at the hospital |
+| `clinician` | Medical staff linked to their specialty |
+| `clinic` | Physical locations where services are delivered |
+| `appointment` | Scheduled, attended or cancelled patient consultations |
+| `diagnosis` | Standardised clinical diagnosis reference data |
+| `appointment_diagnosis` | Junction table linking appointments to recorded diagnoses |
+| `prescription` | Medication authorisation records |
+| `medicine` | Catalogue of drugs including coding and manufacturer details |
+| `prescription_item` | Individual medication lines within each prescription |
+| `follow_up` | Planned or completed review arrangements |
+
+### Key Features
+- **Normalised Design**: Structured to 3NF to eliminate redundancy and ensure data consistency
+- **Referential Integrity**: Foreign keys enforce valid relationships between tables
+- **Cascade Behaviour**: `ON DELETE RESTRICT` protects core records; `ON DELETE CASCADE` removes dependent records appropriately
+- **Business Rules**: Stored procedures and triggers validate data at the database level
+- **Enumerated Statuses**: Consistent values for appointment and follow-up states
+
+## Setup Instructions
+### Prerequisites
+- MySQL 5.7+ or MariaDB 10.2+
+- Git (optional, for version control)
+
+### Installation
+1. Clone or download this repository
+2. Create and select the database:
+   ```sql
+   source schema/create_tables.sql
